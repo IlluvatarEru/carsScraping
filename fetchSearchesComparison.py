@@ -22,6 +22,7 @@ baseUrl_uk="https://www.autotrader.co.uk/car-search?sort=relevance&radius=1500&p
 miles_to_km = 1.60934
 epsilon_km = 50000
 epsilon_years = 2
+maxPrice_uk = 10000.0
 
 path="C:/dev/carScraping/data"
 
@@ -35,6 +36,7 @@ def similar(a, b):
 #%%
 k=0
 l=0
+print("Autotrader: starting")
 for j in range(1,6):
     print("page ",j)
     url = baseUrl_uk + str(j)
@@ -87,9 +89,10 @@ for j in range(1,6):
             print("Did not work for ",i)
     driver.close()
 
-autotrader[autotrader["keep_uk"]==True].to_csv(path+'scrapedCarInfo.csv',sep=";")
+autotrader[autotrader["keep_uk"]==True].to_csv(path+'data/scrapedCarInfo.csv',sep=";")
 autotraderToInvestigate = autotrader[autotrader["keep_uk"]==True]
-
+print("Autotrader: finished")
+print("leparking: starting")
 n=0
 for j in range(len(autotraderToInvestigate)):
     row = autotraderToInvestigate.iloc[j]
@@ -138,5 +141,8 @@ for j in range(len(autotraderToInvestigate)):
         final_result.loc[n] = c[1].tolist()
         n+=1
     
-final_result.to_csv(path+'final_comparison.csv',sep=";")
+final_result = final_result.drop_duplicates()
+final_result = final_result[final_result['price_uk (gbp)']<= maxPrice_uk]
+final_result.to_csv(path+'data/final_comparison.csv',sep=";")
 
+print("leparking: finished")
