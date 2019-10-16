@@ -1,7 +1,8 @@
 ;title_uk;brand_uk;model_uk;price_uk (gbp);year_uk;kilometrage_uk;fuelType_uk;bodyType_uk;gearBox_uk;link_uk;keep_uk
-2;Saab 900 1992 900i 16v 2.0;Saab;900 1992;3400.0;1992;104607.1;;Saloon;Petrol;https://www.autotrader.co.uk/classified/advert/201906159038545;True
-7;Porsche Panamera 3.0 TD V6 Tiptronic 5dr;Porsche;Panamera 3.0;27999.0;2013;77248.31999999999;;Hatchback;Diesel;https://www.autotrader.co.uk/classified/advert/201910073043903;True
-8;Citroen C3 Left Hand Drive, Currently on French Plates LEFT HAND …;Citroen;C3 Left;5990.0;2014;96560.4;;Hatchback;Petrol;https://www.autotrader.co.uk/classified/advert/201909252606871;True
-12;Hummer H2 6.2 V8 Luxury 5dr;Hummer;H2 6.2;17000.0;2006;94774.0326;;SUV;Petrol;https://www.autotrader.co.uk/classified/advert/201909132180743;True
-17;Ford Mustang 5.0 V8 GT Fastback 2dr;Ford;Mustang 5.0;25495.0;2015;104608.70934;;Coupe;Petrol;https://www.autotrader.co.uk/classified/advert/201909031827363;True
-18;Opel GT 2.0 litre 2 door coupe;Opel;GT 2.0;9450.0;2001;40233.5;;Coupe;Petrol;https://www.autotrader.co.uk/classified/advert/201905168013765;True
+2;Saab 900 1992 900i 16v 2.0;saab;900 1992;2900.0;1992;104607.1;;Saloon;Petrol;https://www.autotrader.co.uk/classified/advert/201906159038545;True
+3;Ford Mustang 3.7 V6 AUTO LEFT HAND DRIVE USA IMPORT 2dr;ford;Mustang 3.7;16985.0;2013;127137.86;;Coupe;Petrol;https://www.autotrader.co.uk/classified/advert/201908151173318;True
+5;Mercedes-Benz Sprinter 2.2 CDI 416 Window H/R Mobility 4dr (LWB);mercedes-benz;Sprinter 2.2;7450.0;2007;354779.003;;Minibus;Diesel;https://www.autotrader.co.uk/classified/advert/201910153335614;True
+13;Fiat Panda Hatchback 1.2 Lounge 5dr;fiat;Panda Hatchback;5990.0;2016;19378.06294;;Hatchback;Petrol;https://www.autotrader.co.uk/classified/advert/201910073034872;True
+14;Ford Galaxy 2.0 TDCi Titanium 5dr;ford;Galaxy 2.0;6995.0;2012;119091.16;;MPV;Diesel;https://www.autotrader.co.uk/classified/advert/201907019573799;True
+16;Mercedes-Benz CLK 320 cabriolet 3.2;mercedes-benz;CLK 320;7000.0;2005;143231.26;;Convertible;Petrol;https://www.autotrader.co.uk/classified/advert/201909182374720;True
+23;Toyota Yaris 1.5 VVT-h Icon E-CVT (s/s) 5dr;toyota;Yaris 1.5;13990.0;2019;20335.62024;;Hatchback;Hybrid – Petrol/Electric;https://www.autotrader.co.uk/classified/advert/201910083084936;True
