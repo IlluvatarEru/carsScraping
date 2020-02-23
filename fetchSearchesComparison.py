@@ -5,6 +5,9 @@ Created on Tue Oct  8 00:50:03 2019
 @author: Arthur
 """
 
+"""
+imports and initialization
+"""
 import bs4
 import requests
 import pandas as pd
@@ -40,20 +43,27 @@ autotrader = pd.DataFrame(columns=["title_uk","brand_uk","model_uk","price_uk (g
 leparking = pd.DataFrame(columns=["brand_fr","model_fr","price_fr (eur)","year_fr","kilometrage_fr","fuelType_fr","gearBox_fr","link_fr"])
 final_result = pd.DataFrame(columns=["title_uk","brand_uk","model_uk","price_uk (gbp)","year_uk","kilometrage_uk","fuelType_uk","bodyType_uk","gearBox_uk","link_uk","brand_fr","model_fr","price_fr (eur)","year_fr","kilometrage_fr","fuelType_fr","gearBox_fr","link_fr"])
 
+'''
+Fonctions
+'''
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
 
 k=0
-l=0
+counter_car_added=0
+Nb_pages=20
+keywords = ["lhd","left hand drive", "left-hand drive", "left-hand-drive"]
+
 print("Autotrader: starting")
-for j in range(1,10):
-    print("page ",j)
-    url = baseUrl_uk + str(j)
+# loop over N first pages
+for page_number_j in range(1,Nb_pages):
+    print("page ",page_number_j)
+    url = baseUrl_uk + str(page_number_j)
     response = requests.get(url)
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
     li_box = soup.find_all("li", {"class":"search-page__result"})
-    
+    # loop over each annonce
     for i in range(len(li_box)):
         try:
             price = float(li_box[i].find_all("div",{'class':'vehicle-price'})[0].get_text().replace("£","").replace(",",""))
@@ -67,17 +77,17 @@ for j in range(1,10):
             year = int(listing[1][0:4])
             kilometrage = mileage * miles_to_km
             bodyType = listing[2]
-            fuelType = listing[len(listing)-1]
-            gearBox = listing[len(listing)-2]
+            fuelType = listing[len(listing)-2]
+            gearBox = listing[len(listing)-3]
             link = "https://www.autotrader.co.uk/classified/advert/"+li_box[i].find_all("a",{"class":"js-click-handler listing-fpa-link tracking-standard-link"})[0]["href"].split("/")[3].split("?")[0]
-            autotrader.loc[l] = [title,brand,model,price,year,kilometrage,fuelType,bodyType,gearBox,link,False]
-            l=l+1
+            autotrader.loc[counter_car_added] = [title,brand,model,price,year,kilometrage,fuelType,bodyType,gearBox,link,False]
+            counter_car_added+=1
         except:
             print("autotrader error ",i)
    
     links = autotrader["link_uk"]
-    keywords = ["lhd","left hand drive", "left-hand drive", "left-hand-drive"]
     
+    # for each of the link gathered look at description to check it is a lhd car
     for i in range(len(links)):
         try:
             link = links[i]
@@ -104,6 +114,7 @@ autotraderToInvestigate = autotrader[autotrader["keep_uk"]==True]
 print("Autotrader: finished")
 print("leparking: starting")
 n=0
+# now for each lhd car in the UK go find cars in Fr that look the same
 for j in range(len(autotraderToInvestigate)):
     row = autotraderToInvestigate.iloc[j]
     keywords = row["brand_uk"] + " " + row["model_uk"]
@@ -169,7 +180,7 @@ print("leparking: finished")
 print("Sending email")
 
 emailfrom = "arthurautomaticemail@gmail.com"
-emailto = "arthurbagourd56@gmail.com"
+emailto = ["arthurbagourd56@gmail.com", "aika.baitas@gmail.com","leturmy56@gmail.com"]
 fileToSend = path + "final_comparison.xlsx"
 username = emailfrom
 password = "arthurautomatic1011*"
@@ -189,9 +200,9 @@ options = {'0' : 'th',
 c=options[str(d)[-1]]
 msg = MIMEMultipart("alternative", None, [MIMEText("Please find attached the left hand drive cars for sale in the UK this week")])
 msg["From"] = emailfrom
-msg["To"] = emailto
+msg["To"] =", ".join(emailto)
 msg["Subject"] = "Left hand drive cars in the UK - " + d+c+" "+mth + " " + str(now.year)
-msg.preamble = "Please find attached the left hand drive cars for sale in the UK this week"
+msg.preamble = "Please find attached the left hand drive cars for sale in the UK this week \n Arthur Bagourd"
 msg["Body"]="rr"
 ctype, encoding = mimetypes.guess_type(fileToSend)
 if ctype is None or encoding is not None:
